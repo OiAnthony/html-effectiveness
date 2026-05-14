@@ -117,7 +117,7 @@ mono:       "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "Tsanger
 | H2 | 24px | 500 | 1.3 | `font-serif font-medium text-2xl` |
 | H3 | 20px | 500 | 1.35 | `font-serif font-medium text-xl` |
 | Body | 16px | 400 | 1.55 | `text-base leading-relaxed` |
-| Small | 12-13px | 400 | 1.5 | `text-sm` |
+| Small | 14px | 400 | 1.5 | `text-sm` |
 | Eyebrow | 11px | 500 | 1.4 | `font-mono text-xs tracking-[0.08em] uppercase` |
 | Code | 12.5px | 400 | 1.65 | `font-mono text-xs leading-[1.65]` |
 
@@ -339,7 +339,7 @@ Syntax colors:
 ```html
 <div class="quote">
   <p class="text-dark-warm">"Quoted text here."</p>
-  <cite class="text-xs text-stone mt-1 block">— Source</cite>
+  <cite class="text-sm text-stone mt-1 block">— Source</cite>
 </div>
 ```
 
@@ -459,19 +459,19 @@ process. Uses existing `.section-num` for step markers.
   <div class="flex-1 text-center">
     <span class="section-num">01</span>
     <div class="text-sm font-medium mt-2">Requirements</div>
-    <div class="text-xs text-olive mt-0.5">Scope & prioritize</div>
+    <div class="text-sm text-olive mt-0.5">Scope & prioritize</div>
   </div>
   <div class="text-stone text-lg mt-1 px-1">→</div>
   <div class="flex-1 text-center">
     <span class="section-num">02</span>
     <div class="text-sm font-medium mt-2">Development</div>
-    <div class="text-xs text-olive mt-0.5">Build & test</div>
+    <div class="text-sm text-olive mt-0.5">Build & test</div>
   </div>
   <div class="text-stone text-lg mt-1 px-1">→</div>
   <div class="flex-1 text-center">
     <span class="section-num">03</span>
     <div class="text-sm font-medium mt-2">Deploy</div>
-    <div class="text-xs text-olive mt-0.5">Ship & monitor</div>
+    <div class="text-sm text-olive mt-0.5">Ship & monitor</div>
   </div>
 </div>
 ```
@@ -487,7 +487,7 @@ create the tree trunk.
   <div class="pl-5 border-l-2 border-brand space-y-2.5">
     <div>
       <div class="text-sm font-medium text-dark-warm">Auth Service</div>
-      <div class="text-xs text-olive">JWT validation, OAuth2</div>
+      <div class="text-sm text-olive">JWT validation, OAuth2</div>
     </div>
     <div>
       <div class="text-sm font-medium text-dark-warm">User Service</div>
@@ -560,7 +560,7 @@ list, and semantic colors.
 
 ```html
 <div class="sticky top-0 z-5 bg-parchment flex items-center gap-3.5 py-3.5 mb-3.5 border-b border-dotted border-border">
-  <div class="font-mono text-xs text-dark-warm">Summary text</div>
+  <div class="font-mono text-sm text-dark-warm">Summary text</div>
   <div class="flex-1"></div>
   <button class="btn-ghost">Reset</button>
   <button class="btn-primary">Export</button>

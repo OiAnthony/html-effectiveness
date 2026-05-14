@@ -15,32 +15,32 @@
 .eyebrow-muted { @apply font-mono text-[11px] tracking-[0.08em] uppercase text-stone; }
 .lead { @apply text-[16px] leading-[1.5] text-dark-warm mb-4 max-w-[85%]; }
 .hl { @apply text-brand font-medium; }
-.sub { @apply text-xs text-stone font-normal ml-2; }
+.sub { @apply text-sm text-stone font-normal ml-2; }
 
 /* ══════════ TAGS & BADGES ══════════ */
 .tag { @apply bg-brand-tint-strong text-brand text-[11px] font-medium px-2.5 py-0.5 rounded tracking-[0.04em]; }
 .tag-breaking { @apply bg-[#f0e0d8] text-[#8b4513] text-[11px] font-medium px-2.5 py-0.5 rounded tracking-[0.04em]; }
-.badge { @apply inline-flex items-center h-7 px-3 text-[13px] font-medium rounded bg-brand-tint text-brand; }
-.badge-success { @apply bg-[rgba(74,124,89,0.16)] text-success; }
-.badge-danger { @apply bg-[rgba(139,58,58,0.12)] text-danger; }
-.badge-warning { @apply bg-[rgba(199,142,63,0.16)] text-warning; }
+.badge { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-brand-tint text-brand; }
+.badge-success { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(74,124,89,0.16)] text-success; }
+.badge-danger { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(139,58,58,0.12)] text-danger; }
+.badge-warning { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(199,142,63,0.16)] text-warning; }
 
 /* ══════════ SECTION NUMBERS ══════════ */
 .section-num { @apply font-mono text-[12px] bg-brand-tint-strong text-brand px-2.5 py-0.5 rounded-lg; }
 
 /* ══════════ METRICS ══════════ */
 .metrics { @apply flex gap-6 pb-4 mb-6 border-b border-dotted border-border items-baseline; }
-.metric { @apply flex-1 flex items-baseline gap-2; }
-.metric-value { @apply font-serif text-[24px] font-medium text-brand leading-none; font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
-.metric-label { @apply text-[12px] text-olive leading-tight; }
-.metric-val { @apply font-serif text-[28px] font-medium text-brand; font-variant-numeric: tabular-nums; }
+.metric { @apply flex-1 flex items-center gap-2; }
+.metric-value { @apply font-serif text-2xl font-medium text-brand leading-none; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
+.metric-label { @apply text-xl text-olive leading-tight; }
+.metric-val { @apply font-serif text-2xl font-medium text-brand; font-variant-numeric: tabular-nums; }
 
 /* ══════════ TIMELINE ══════════ */
 .timeline { @apply flex gap-5 mt-2; }
 .tl-step { @apply flex-1; }
 .tl-year { @apply font-serif text-[14px] font-medium text-brand mb-0.5; }
-.tl-head { @apply text-[13px] font-medium text-near-black mb-0.5; }
-.tl-body { @apply text-[12px] text-olive leading-snug; }
+.tl-head { @apply text-sm font-medium text-near-black mb-0.5; }
+.tl-body { @apply text-sm text-olive leading-snug; }
 
 /* ══════════ LISTS ══════════ */
 ul.dash { @apply list-none m-0 p-0; }
@@ -48,27 +48,27 @@ ul.dash li { @apply relative pl-4 mb-1 leading-snug; }
 ul.dash li::before { content: "\2013"; @apply absolute left-0 text-brand; }
 
 /* ══════════ TABLES ══════════ */
-.kami-table { @apply w-full text-[13px] border-collapse; }
+.kami-table { @apply w-full text-sm border-collapse; }
 .kami-table th { @apply text-left font-medium text-dark-warm px-3 py-2 border-b border-border bg-transparent; }
 .kami-table td { @apply px-3 py-2 border-b border-dotted border-border-soft align-top; }
-.kami-table.compact th { @apply px-2 py-1 text-[11px]; }
-.kami-table.compact td { @apply px-2 py-1 text-[11px] leading-snug; }
+.kami-table.compact th { @apply px-2 py-1 text-xs; }
+.kami-table.compact td { @apply px-2 py-1 text-xs leading-snug; }
 .kami-table.striped tbody tr:nth-child(even) td { @apply bg-ivory; }
 .kami-table .total td { @apply font-medium border-t border-brand border-b-0 text-near-black; }
 
 /* ══════════ QUOTE ══════════ */
 .quote { @apply border-l-2 border-brand pl-4 py-1 text-olive leading-relaxed; }
-.quote .cite { @apply block text-[12px] text-stone mt-1; }
+.quote .cite { @apply block text-sm text-stone mt-1; }
 
 /* ══════════ GRID LAYOUTS ══════════ */
 .two-col { @apply grid grid-cols-2 gap-6; }
 
 /* ══════════ BUTTONS ══════════ */
-.btn-primary { @apply bg-brand text-ivory border border-brand rounded-full font-mono text-[12px] px-4 py-2 cursor-pointer hover:bg-brand-light; }
-.btn-ghost { @apply bg-transparent text-dark-warm border border-border rounded-full font-mono text-[12px] px-3.5 py-2 cursor-pointer hover:bg-ivory; }
+.btn-primary { @apply bg-brand text-ivory border border-brand rounded-full font-mono text-sm px-4 py-2 cursor-pointer hover:bg-brand-light; }
+.btn-ghost { @apply bg-transparent text-dark-warm border border-border rounded-full font-mono text-sm px-3.5 py-2 cursor-pointer hover:bg-ivory; }
 
 /* ══════════ CODE ══════════ */
-.inline-code { @apply font-mono text-[13px] bg-parchment px-1.5 py-0.5 rounded; }
+.inline-code { @apply font-mono text-sm bg-parchment px-1.5 py-0.5 rounded; }
 .code-block { @apply bg-deep-dark rounded-xl py-1 overflow-x-auto; }
 
 /* ══════════ PROMPT BOX ══════════ */
@@ -76,7 +76,7 @@ ul.dash li::before { content: "\2013"; @apply absolute left-0 text-brand; }
 .prompt-box .prompt-label { @apply font-mono text-[11px] tracking-[0.06em] uppercase text-stone block mb-1.5; }
 
 /* ══════════ CHIPS ══════════ */
-.chip { @apply font-mono text-[11px] bg-parchment border border-border text-dark-warm px-2.5 py-1 rounded-lg whitespace-nowrap; }
+.chip { @apply font-mono text-xs bg-parchment border border-border text-dark-warm px-2.5 py-1 rounded-lg whitespace-nowrap; }
 .chip .chip-val { @apply text-near-black font-medium; }
 
 /* ══════════ FOOTER ══════════ */
@@ -87,4 +87,4 @@ ul.dash li::before { content: "\2013"; @apply absolute left-0 text-brand; }
 .version-header .version-logo { @apply font-serif text-[16px] font-medium text-brand tracking-wide mb-2; }
 .version-header .version-title { @apply font-serif text-[32px] font-medium text-near-black leading-tight mb-1.5; }
 .version-header .version-tagline { @apply text-[14px] text-olive leading-relaxed; }
-.version-header .version-date { @apply text-[13px] text-stone mt-2; font-variant-numeric: tabular-nums; }
+.version-header .version-date { @apply text-sm text-stone mt-2; font-variant-numeric: tabular-nums; }

@@ -323,7 +323,7 @@ utility chain. The built-in classes below are already defined this way.
 **Metrics (Kami inline strip):**
 - `.metrics` — Horizontal flex row with dotted bottom border
 - `.metric` — Single metric (flex baseline, transparent)
-- `.metric-value` — Large brand number (24px, tabular-nums)
+- `.metric-value` — Large brand number (32px, tabular-nums)
 - `.metric-label` — Small olive label
 
 **Timeline:**

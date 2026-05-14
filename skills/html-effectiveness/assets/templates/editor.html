@@ -41,7 +41,7 @@
     <div class="eyebrow">{{EYEBROW}}</div>
     <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
     <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
-    <p class="font-mono text-xs text-stone mt-2.5 before:content-['\203A'] before:text-brand before:mr-1.5">Drag cards between columns. Click Export to copy as Markdown.</p>
+    <p class="font-mono text-sm text-stone mt-2.5 before:content-['\203A'] before:text-brand before:mr-1.5">Drag cards between columns. Click Export to copy as Markdown.</p>
   </header>
 
   <!-- TOOLBAR -->
@@ -134,9 +134,9 @@
     var total = ITEMS.length;
     var high = ITEMS.filter(function(t) { return t.priority === 'high'; }).length;
     var done = ITEMS.filter(function(t) { return t.col === 'done'; }).length;
-    el.innerHTML = '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-brand" style="font-variant-numeric:tabular-nums">' + total + '</span><span class="text-xs text-olive">total</span></div>' +
-      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-danger" style="font-variant-numeric:tabular-nums">' + high + '</span><span class="text-xs text-olive">high priority</span></div>' +
-      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-success" style="font-variant-numeric:tabular-nums">' + done + '</span><span class="text-xs text-olive">completed</span></div>';
+    el.innerHTML = '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-brand" style="font-variant-numeric:tabular-nums">' + total + '</span><span class="text-sm text-olive">total</span></div>' +
+      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-danger" style="font-variant-numeric:tabular-nums">' + high + '</span><span class="text-sm text-olive">high priority</span></div>' +
+      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-success" style="font-variant-numeric:tabular-nums">' + done + '</span><span class="text-sm text-olive">completed</span></div>';
   }
 
   document.getElementById('exportBtn').addEventListener('click', function() {
