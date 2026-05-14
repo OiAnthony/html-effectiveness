@@ -20,10 +20,10 @@
 /* ══════════ TAGS & BADGES ══════════ */
 .tag { @apply bg-brand-tint-strong text-brand text-[11px] font-medium px-2.5 py-0.5 rounded tracking-[0.04em]; }
 .tag-breaking { @apply bg-[#f0e0d8] text-[#8b4513] text-[11px] font-medium px-2.5 py-0.5 rounded tracking-[0.04em]; }
-.badge { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-brand-tint text-brand; }
-.badge-success { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(74,124,89,0.16)] text-success; }
-.badge-danger { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(139,58,58,0.12)] text-danger; }
-.badge-warning { @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-[rgba(199,142,63,0.16)] text-warning; }
+.badge { @apply inline-flex justify-center items-center px-2 py-0.5 text-xs font-medium rounded-full bg-brand-tint text-brand; }
+.badge-success { @apply inline-flex justify-center items-center px-2 py-0.5 text-xs font-medium rounded-full bg-[rgba(74,124,89,0.16)] text-success; }
+.badge-danger { @apply inline-flex justify-center items-center px-2 py-0.5 text-xs font-medium rounded-full bg-[rgba(139,58,58,0.12)] text-danger; }
+.badge-warning { @apply inline-flex justify-center items-center px-2 py-0.5 text-xs font-medium rounded-full bg-[rgba(199,142,63,0.16)] text-warning; }
 
 /* ══════════ SECTION NUMBERS ══════════ */
 .section-num { @apply font-mono text-[12px] bg-brand-tint-strong text-brand px-2.5 py-0.5 rounded-lg; }
