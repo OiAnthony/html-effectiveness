@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+
+  .diff-row {
+    display: grid;
+    grid-template-columns: 44px 44px 18px 1fr;
+    padding: 0 16px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+  }
+  .diff-row .ln { color: var(--color-stone); text-align: right; padding-right: 8px; user-select: none; }
+  .diff-row .marker { color: var(--color-stone); user-select: none; text-align: center; }
+  .diff-row .code-line { color: #E8E6DE; white-space: pre; }
+  .diff-row.add { background: rgba(74,124,89,0.15); }
+  .diff-row.add .marker { color: var(--color-success); }
+  .diff-row.del { background: rgba(139,58,58,0.15); }
+  .diff-row.del .marker { color: var(--color-danger); }
+  .diff-row.hunk { background: rgba(27,54,93,0.10); }
+  .diff-row.hunk .code-line { color: var(--color-stone); }
+
+  .annotation::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    width: 14px;
+    height: 14px;
+    background: var(--color-ivory);
+    border-left: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+    transform: rotate(45deg);
+  }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased px-8 pt-12 pb-24">
+<div class="max-w-[1120px] mx-auto">
+
+  <header>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
+    <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
+  </header>
+
+  <p class="lead mt-4">{{LEAD}}</p>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-value">{{NUM_FILES}}</span>
+      <span class="metric-label">files changed</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value text-success">+{{ADDITIONS}}</span>
+      <span class="metric-label">additions</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value text-danger">-{{DELETIONS}}</span>
+      <span class="metric-label">deletions</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{NUM_COMMENTS}}</span>
+      <span class="metric-label">comments</span>
+    </div>
+  </div>
+
+  <!-- FILE TABS -->
+  <div class="flex gap-0 overflow-x-auto border-b border-dotted border-border mb-6" id="fileTabs">
+    <div class="file-tab px-4 py-2.5 font-mono text-xs tracking-[0.03em] text-near-black cursor-pointer whitespace-nowrap -mb-px border-b-2 border-brand" data-file="file-1">{{FILE_1}}</div>
+    <div class="file-tab px-4 py-2.5 font-mono text-xs tracking-[0.03em] text-stone cursor-pointer whitespace-nowrap -mb-px border-b-2 border-transparent hover:text-near-black" data-file="file-2">{{FILE_2}}</div>
+  </div>
+
+  <!-- FILE 1 -->
+  <div class="file-panel" id="file-1">
+    <div class="code-block mb-5">
+      <div class="diff-row hunk">
+        <span class="ln"></span><span class="ln"></span>
+        <span class="marker"></span>
+        <span class="code-line">@@ -10,6 +10,8 @@</span>
+      </div>
+      <div class="diff-row">
+        <span class="ln">10</span><span class="ln">10</span>
+        <span class="marker"></span>
+        <span class="code-line">  // context line</span>
+      </div>
+      <div class="diff-row add">
+        <span class="ln"></span><span class="ln">11</span>
+        <span class="marker">+</span>
+        <span class="code-line">  // added line</span>
+      </div>
+      <div class="diff-row del">
+        <span class="ln">11</span><span class="ln"></span>
+        <span class="marker">-</span>
+        <span class="code-line">  // removed line</span>
+      </div>
+    </div>
+
+    <div class="annotation relative bg-ivory border border-border rounded-xl px-4.5 py-3.5 ml-15 my-3 text-dark-warm">
+      <div class="flex items-center gap-2 mb-1.5">
+        <span class="tag">Suggestion</span>
+      </div>
+      <p>{{ANNOTATION_TEXT}}</p>
+    </div>
+  </div>
+
+  <!-- FILE 2 -->
+  <div class="file-panel hidden" id="file-2">
+    <div class="code-block">
+      <div class="diff-row hunk">
+        <span class="ln"></span><span class="ln"></span>
+        <span class="marker"></span>
+        <span class="code-line">@@ -1,4 +1,4 @@</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="mt-10 border-t border-dotted border-border pt-8">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="badge-success badge">Approve</span>
+    </div>
+    <h2 class="h2-bar mb-3">Review Summary</h2>
+    <p class="text-dark-warm leading-relaxed">{{SUMMARY_TEXT}}</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{FOOTER_LEFT}}</span>
+    <span>{{FOOTER_RIGHT}}</span>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.file-tab');
+  var panels = document.querySelectorAll('.file-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('text-near-black', 'border-brand');
+        t.classList.add('text-stone', 'border-transparent');
+      });
+      panels.forEach(function(p) { p.classList.add('hidden'); });
+      tab.classList.remove('text-stone', 'border-transparent');
+      tab.classList.add('text-near-black', 'border-brand');
+      document.getElementById(tab.dataset.file).classList.remove('hidden');
+    });
+  });
+})();
+</script>
+</body>
+</html>

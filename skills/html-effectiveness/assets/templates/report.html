@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased px-8 pt-12 pb-24">
+<div class="max-w-[1120px] mx-auto">
+
+  <header>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
+    <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
+  </header>
+
+  <p class="lead mt-5">{{LEAD}}</p>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-value">{{VALUE_1}}</span>
+      <span class="metric-label">{{LABEL_1}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{VALUE_2}}</span>
+      <span class="metric-label">{{LABEL_2}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{VALUE_3}}</span>
+      <span class="metric-label">{{LABEL_3}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{VALUE_4}}</span>
+      <span class="metric-label">{{LABEL_4}}</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <section class="mb-12">
+    <h2 class="h2-bar text-2xl tracking-tight mb-2">1. {{SECTION_1_TITLE}}</h2>
+    <p class="text-olive max-w-[720px] mb-5">{{SECTION_1_INTRO}}</p>
+
+    <div class="card mb-4">
+      <h3 class="font-medium text-lg mb-2">{{CARD_TITLE}}</h3>
+      <p class="text-dark-warm">{{CARD_BODY}}</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: TIMELINE -->
+  <section class="mb-12">
+    <h2 class="h2-bar text-2xl tracking-tight mb-4">2. Timeline</h2>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-year">{{PHASE_1_LABEL}}</div>
+        <div class="tl-head">{{PHASE_1_TITLE}}</div>
+        <div class="tl-body">{{PHASE_1_DESC}}</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-year">{{PHASE_2_LABEL}}</div>
+        <div class="tl-head">{{PHASE_2_TITLE}}</div>
+        <div class="tl-body">{{PHASE_2_DESC}}</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-year">{{PHASE_3_LABEL}}</div>
+        <div class="tl-head">{{PHASE_3_TITLE}}</div>
+        <div class="tl-body">{{PHASE_3_DESC}}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout-light mb-12">
+    <div class="eyebrow mb-1.5">Key Takeaway</div>
+    <p class="text-dark-warm leading-relaxed">{{TAKEAWAY_TEXT}}</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{FOOTER_LEFT}}</span>
+    <span>{{FOOTER_RIGHT}}</span>
+  </div>
+
+</div>
+</body>
+</html>

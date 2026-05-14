@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+
+  .ticket.dragging { opacity: 0.4; }
+  .col.dragover .col-body { background: var(--color-brand-tint); border-radius: 8px; }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased">
+<div class="max-w-[1180px] mx-auto px-8 pt-12 pb-16">
+
+  <header>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
+    <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
+    <p class="font-mono text-xs text-stone mt-2.5 before:content-['\203A'] before:text-brand before:mr-1.5">Drag cards between columns. Click Export to copy as Markdown.</p>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="sticky top-0 z-5 bg-parchment flex items-center gap-4 py-3.5 mb-4 border-b border-dotted border-border" id="toolbar">
+    <div class="flex gap-5 items-baseline" id="stats"></div>
+    <div class="flex-1"></div>
+    <button class="btn-ghost" id="resetBtn">Reset</button>
+    <button class="btn-primary" id="exportBtn">Export Markdown</button>
+  </div>
+
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5" id="board"></div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{FOOTER_LEFT}}</span>
+    <span>{{FOOTER_RIGHT}}</span>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var COLUMNS = [
+    { key: 'todo',       label: 'To Do' },
+    { key: 'in_progress', label: 'In Progress' },
+    { key: 'done',       label: 'Done' }
+  ];
+
+  var ITEMS = [
+    // { id: 'T-001', title: 'Example task', col: 'todo', priority: 'high' },
+  ];
+
+  var board = document.getElementById('board');
+  var dragId = null;
+
+  function render() {
+    board.innerHTML = '';
+    COLUMNS.forEach(function(c) {
+      var col = document.createElement('div');
+      col.className = 'col';
+      col.dataset.col = c.key;
+
+      var header = document.createElement('div');
+      header.className = 'flex items-center gap-2 py-2 mb-3 border-b border-dotted border-border';
+      var count = ITEMS.filter(function(t) { return t.col === c.key; }).length;
+      header.innerHTML = '<span class="font-mono text-xs tracking-[0.08em] uppercase text-brand">' + c.label + '</span>' +
+        '<span class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-medium rounded bg-brand-tint-strong text-brand">' + count + '</span>';
+      col.appendChild(header);
+
+      var body = document.createElement('div');
+      body.className = 'col-body min-h-[120px] space-y-0';
+
+      ITEMS.filter(function(t) { return t.col === c.key; }).forEach(function(t) {
+        var card = document.createElement('div');
+        card.className = 'ticket bg-ivory border-b border-dotted border-border-soft px-3 py-2.5 cursor-grab transition-colors duration-100 hover:bg-white hover:border-stone first:rounded-t-lg last:rounded-b-lg last:border-b-0';
+        card.draggable = true;
+        var badgeClass = t.priority === 'high' ? 'badge-danger' :
+                         t.priority === 'medium' ? 'badge-warning' :
+                         'bg-brand-tint text-dark-warm';
+        card.innerHTML = '<div class="font-mono text-xs text-stone">' + t.id + '</div>' +
+          '<div class="text-sm font-medium my-1">' + t.title + '</div>' +
+          '<div class="flex items-center gap-1.5"><span class="inline-flex items-center h-5 px-1.5 text-xs font-medium rounded ' + badgeClass + '">' + t.priority + '</span></div>';
+
+        card.addEventListener('dragstart', function(e) {
+          dragId = t.id;
+          card.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+        });
+        card.addEventListener('dragend', function() { card.classList.remove('dragging'); });
+        body.appendChild(card);
+      });
+
+      body.addEventListener('dragover', function(e) { e.preventDefault(); col.classList.add('dragover'); });
+      body.addEventListener('dragleave', function() { col.classList.remove('dragover'); });
+      body.addEventListener('drop', function(e) {
+        e.preventDefault();
+        col.classList.remove('dragover');
+        var item = ITEMS.find(function(t) { return t.id === dragId; });
+        if (item) { item.col = c.key; render(); }
+      });
+
+      col.appendChild(body);
+      board.appendChild(col);
+    });
+    updateStats();
+  }
+
+  function updateStats() {
+    var el = document.getElementById('stats');
+    var total = ITEMS.length;
+    var high = ITEMS.filter(function(t) { return t.priority === 'high'; }).length;
+    var done = ITEMS.filter(function(t) { return t.col === 'done'; }).length;
+    el.innerHTML = '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-brand" style="font-variant-numeric:tabular-nums">' + total + '</span><span class="text-xs text-olive">total</span></div>' +
+      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-danger" style="font-variant-numeric:tabular-nums">' + high + '</span><span class="text-xs text-olive">high priority</span></div>' +
+      '<div class="flex items-baseline gap-1.5"><span class="text-xl font-medium text-success" style="font-variant-numeric:tabular-nums">' + done + '</span><span class="text-xs text-olive">completed</span></div>';
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', function() {
+    var lines = [];
+    COLUMNS.forEach(function(c) {
+      lines.push('## ' + c.label);
+      ITEMS.filter(function(t) { return t.col === c.key; }).forEach(function(t) {
+        lines.push('- **' + t.id + '** ' + t.title + ' [' + t.priority + ']');
+      });
+      lines.push('');
+    });
+    var btn = this;
+    navigator.clipboard.writeText(lines.join('\n')).then(function() {
+      btn.textContent = 'Copied';
+      btn.classList.add('bg-success', 'border-success');
+      btn.classList.remove('bg-brand', 'border-brand');
+      setTimeout(function() {
+        btn.textContent = 'Export Markdown';
+        btn.classList.remove('bg-success', 'border-success');
+        btn.classList.add('bg-brand', 'border-brand');
+      }, 2000);
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    ITEMS.forEach(function(t) { t.col = 'todo'; });
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

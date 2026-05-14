@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased px-8 pt-12 pb-24">
+<div class="max-w-[1120px] mx-auto">
+
+  <header>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
+    <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
+  </header>
+
+  <p class="lead mt-5">{{LEAD}}</p>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-value">{{METRIC_1_VAL}}</span>
+      <span class="metric-label">{{METRIC_1_LABEL}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{METRIC_2_VAL}}</span>
+      <span class="metric-label">{{METRIC_2_LABEL}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{METRIC_3_VAL}}</span>
+      <span class="metric-label">{{METRIC_3_LABEL}}</span>
+    </div>
+  </div>
+
+  <!-- OPTIONS GRID -->
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(340px,1fr))] gap-5">
+
+    <!-- OPTION A -->
+    <div class="card card-lg border-2 border-brand rounded-lg">
+      <div class="flex items-baseline gap-2.5 mb-3">
+        <span class="tag">A</span>
+        <h3 class="font-medium text-xl">{{OPTION_A_TITLE}}</h3>
+      </div>
+      <p class="text-dark-warm mb-4">{{OPTION_A_DESC}}</p>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <div class="eyebrow-muted mb-1.5">Pros</div>
+          <ul class="dash">
+            <li class="text-success">{{PRO_1}}</li>
+            <li class="text-success">{{PRO_2}}</li>
+          </ul>
+        </div>
+        <div>
+          <div class="eyebrow-muted mb-1.5">Cons</div>
+          <ul class="dash">
+            <li class="text-danger">{{CON_1}}</li>
+            <li class="text-danger">{{CON_2}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex gap-4 items-baseline pt-3 border-t border-dotted border-border-soft">
+        <div class="metric">
+          <span class="metric-value text-lg">{{A_METRIC_VAL}}</span>
+          <span class="metric-label">{{A_METRIC_LABEL}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION B -->
+    <div class="card card-lg rounded-lg hover:border-stone transition-colors duration-100">
+      <div class="flex items-baseline gap-2.5 mb-3">
+        <span class="tag">B</span>
+        <h3 class="font-medium text-xl">{{OPTION_B_TITLE}}</h3>
+      </div>
+      <p class="text-dark-warm mb-4">{{OPTION_B_DESC}}</p>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <div class="eyebrow-muted mb-1.5">Pros</div>
+          <ul class="dash">
+            <li class="text-success">{{PRO_1}}</li>
+            <li class="text-success">{{PRO_2}}</li>
+          </ul>
+        </div>
+        <div>
+          <div class="eyebrow-muted mb-1.5">Cons</div>
+          <ul class="dash">
+            <li class="text-danger">{{CON_1}}</li>
+            <li class="text-danger">{{CON_2}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex gap-4 items-baseline pt-3 border-t border-dotted border-border-soft">
+        <div class="metric">
+          <span class="metric-value text-lg">{{B_METRIC_VAL}}</span>
+          <span class="metric-label">{{B_METRIC_LABEL}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="callout-light mt-10">
+    <h2 class="h2-bar mb-2.5">Recommendation</h2>
+    <p class="text-dark-warm leading-relaxed">{{RECOMMENDATION_TEXT}}</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{FOOTER_LEFT}}</span>
+    <span>{{FOOTER_RIGHT}}</span>
+  </div>
+
+</div>
+</body>
+</html>

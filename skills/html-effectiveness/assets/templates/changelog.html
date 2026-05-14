@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+
+  .filter-btn.active { background: var(--color-brand); color: var(--color-ivory); }
+  .change-item[data-hidden="true"] { display: none; }
+  ol.changes { counter-reset: change; list-style: none; padding: 0; }
+  ol.changes li { counter-increment: change; position: relative; padding-left: 28px; margin-bottom: 8px; }
+  ol.changes li::before {
+    content: counter(change);
+    position: absolute; left: 0; top: 1px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    color: var(--color-brand);
+    width: 20px; text-align: right;
+  }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased px-8 pt-12 pb-24">
+<div class="max-w-[820px] mx-auto">
+
+  <!-- VERSION HEADER -->
+  <div class="version-header">
+    <div class="version-logo">{{PROJECT_NAME}}</div>
+    <div class="version-title">{{VERSION}} {{VERSION_NAME}}</div>
+    <div class="version-tagline">{{TAGLINE}}</div>
+    <div class="version-date">{{RELEASE_DATE}}</div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="flex gap-2 mb-8" id="filters">
+    <button class="filter-btn font-mono text-xs tracking-[0.06em] uppercase px-3 py-1.5 rounded-full border border-border cursor-pointer transition-colors active" data-filter="all">All</button>
+    <button class="filter-btn font-mono text-xs tracking-[0.06em] uppercase px-3 py-1.5 rounded-full border border-border cursor-pointer transition-colors" data-filter="breaking">Breaking</button>
+    <button class="filter-btn font-mono text-xs tracking-[0.06em] uppercase px-3 py-1.5 rounded-full border border-border cursor-pointer transition-colors" data-filter="feature">Features</button>
+    <button class="filter-btn font-mono text-xs tracking-[0.06em] uppercase px-3 py-1.5 rounded-full border border-border cursor-pointer transition-colors" data-filter="fix">Fixes</button>
+  </div>
+
+  <!-- BREAKING CHANGES -->
+  <section class="change-item mb-10" data-type="breaking">
+    <h2 class="h2-bar mb-4">Breaking Changes</h2>
+    <ol class="changes text-dark-warm">
+      <li><span class="tag-breaking mr-2">Breaking</span>{{BREAKING_1}}</li>
+    </ol>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="change-item mb-10" data-type="feature">
+    <h2 class="h2-bar mb-4">Features</h2>
+    <ol class="changes text-dark-warm">
+      <li>{{FEATURE_1}}</li>
+      <li>{{FEATURE_2}}</li>
+      <li>{{FEATURE_3}}</li>
+    </ol>
+  </section>
+
+  <!-- FIXES -->
+  <section class="change-item mb-10" data-type="fix">
+    <h2 class="h2-bar mb-4">Fixes</h2>
+    <ol class="changes text-dark-warm">
+      <li>{{FIX_1}}</li>
+      <li>{{FIX_2}}</li>
+    </ol>
+  </section>
+
+  <!-- THANKS -->
+  <div class="callout-light mt-8">
+    <div class="eyebrow mb-1">Acknowledgments</div>
+    <p class="text-dark-warm">{{THANKS_TEXT}}</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{PROJECT_DESC}}</span>
+    <span>{{PROJECT_URL}}</span>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var btns = document.querySelectorAll('.filter-btn');
+  var items = document.querySelectorAll('.change-item');
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.dataset.filter;
+      items.forEach(function(item) {
+        if (filter === 'all' || item.dataset.type === filter) {
+          item.removeAttribute('data-hidden');
+        } else {
+          item.setAttribute('data-hidden', 'true');
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

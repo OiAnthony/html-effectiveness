@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-parchment: #f5f4ed;
+    --color-ivory: #faf9f5;
+    --color-sand: #e8e6dc;
+    --color-brand: #1B365D;
+    --color-brand-light: #2D5A8A;
+    --color-brand-tint: #EEF2F7;
+    --color-brand-tint-strong: #E4ECF5;
+    --color-near-black: #141413;
+    --color-dark-warm: #3d3d3a;
+    --color-olive: #504e49;
+    --color-stone: #6b6a64;
+    --color-border: #e8e6dc;
+    --color-border-soft: #e5e3d8;
+    --color-success: #4a7c59;
+    --color-danger: #8b3a3a;
+    --color-warning: #C78E3F;
+    --color-dark-surface: #30302e;
+    --color-deep-dark: #141413;
+    --font-serif: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-sans: "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", Charter, Georgia, serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, "TsangerJinKai02", "Source Han Serif SC", monospace;
+  }
+
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "\25B6";
+    font-size: 10px;
+    margin-right: 10px;
+    color: var(--color-stone);
+    transition: transform 0.12s ease;
+    display: inline-block;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] > div { border-left: 2px solid var(--color-brand); }
+
+  .code .kw  { color: #1B365D; }
+  .code .str { color: #4a7c59; }
+  .code .cm  { color: #6b6a64; }
+  .code .fn  { color: #C9B98A; }
+  .code .num { color: #2D5A8A; }
+</style>
+</head>
+<body class="bg-parchment text-near-black font-serif text-base leading-relaxed antialiased px-8 pt-12 pb-24">
+<div class="max-w-[1120px] mx-auto">
+
+  <header>
+    <div class="eyebrow">{{EYEBROW}}</div>
+    <h1 class="font-medium text-3xl tracking-tight mt-1.5 mb-1">{{TITLE}}</h1>
+    <p class="text-stone max-w-[620px]">{{SUBTITLE}}</p>
+  </header>
+
+  <p class="lead mt-4">{{LEAD}}</p>
+
+  <!-- KEY FINDINGS -->
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-value">{{FINDING_1_VAL}}</span>
+      <span class="metric-label">{{FINDING_1_LABEL}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{FINDING_2_VAL}}</span>
+      <span class="metric-label">{{FINDING_2_LABEL}}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">{{FINDING_3_VAL}}</span>
+      <span class="metric-label">{{FINDING_3_LABEL}}</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <section class="mb-10">
+    <h2 class="h2-bar mb-3">1. {{SECTION_1_TITLE}}</h2>
+    <div class="card mb-4">
+      <h3 class="font-medium text-lg mb-2.5">{{CARD_TITLE}}</h3>
+      <p class="text-dark-warm mt-2">{{CARD_BODY}}</p>
+    </div>
+
+    <details class="mb-4">
+      <summary class="font-medium text-base cursor-pointer px-4 py-3 bg-ivory border border-border rounded-lg">{{DETAIL_TITLE}}</summary>
+      <div class="px-4 py-4 bg-ivory border border-border border-t-0 rounded-b-lg text-dark-warm ml-0.5">
+        <p>{{DETAIL_BODY}}</p>
+      </div>
+    </details>
+
+    <div class="callout-light mt-6">
+      <div class="eyebrow mb-1">Key Insight</div>
+      <p class="text-dark-warm">{{INSIGHT_TEXT}}</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="mb-10">
+    <h2 class="h2-bar mb-3">2. {{SECTION_2_TITLE}}</h2>
+    <p class="text-dark-warm mb-4">{{SECTION_2_CONTENT}}</p>
+
+    <div class="quote">
+      <p>{{QUOTE_TEXT}}</p>
+      <span class="cite">— {{QUOTE_SOURCE}}</span>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="mb-10">
+    <h2 class="h2-bar mb-3">3. {{SECTION_3_TITLE}}</h2>
+    <p class="text-dark-warm">{{SECTION_3_CONTENT}}</p>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>{{FOOTER_LEFT}}</span>
+    <span>{{FOOTER_RIGHT}}</span>
+  </div>
+
+</div>
+</body>
+</html>
