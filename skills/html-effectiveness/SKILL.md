@@ -72,7 +72,7 @@ use cases. Here is the quick decision table:
 | Explain a concept / feature | Research | Collapsible sections, progressive disclosure, inline demos |
 | Status update / incident report | Report | Metric strip, timeline, status badges |
 | Present to an audience | Deck | Full-viewport slides, arrow-key nav |
-| Draw a diagram / flowchart | Illustration | Inline SVG, clean vector shapes |
+| Draw a diagram / flowchart | Illustration | Mermaid code blocks via beautiful-mermaid |
 | Build a throwaway editing tool | Editor | Data-driven DOM, drag-and-drop, export |
 | Release notes / version history | Changelog | Categorized entries with filters |
 
@@ -173,247 +173,37 @@ open <filename>.html
 
 ---
 
-## Design Quick Reference — Kami "Parchment" System
+## Design system
 
-The full design system is in `references/design.md`. Templates use Tailwind CSS
-v4 Play CDN with a `@theme` block that defines all Kami tokens.
+Read `references/design.md` for the complete Kami design system: color tokens,
+`@theme` block, typography scale, spacing, shape, and component class catalog.
 
-### Tailwind CDN + Theme setup
+### Design invariants (always enforce)
 
-Every HTML file must include this in `<head>`:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<style type="text/tailwindcss">
-  @theme {
-    --color-parchment: #f5f4ed;
-    --color-ivory: #faf9f5;
-    --color-sand: #e8e6dc;
-    --color-brand: #1B365D;
-    --color-brand-light: #2D5A8A;
-    --color-brand-tint: #EEF2F7;
-    --color-brand-tint-strong: #E4ECF5;
-    --color-near-black: #141413;
-    --color-dark-warm: #3d3d3a;
-    --color-olive: #504e49;
-    --color-stone: #6b6a64;
-    --color-border: #e8e6dc;
-    --color-border-soft: #e5e3d8;
-    --color-success: #4a7c59;
-    --color-danger: #8b3a3a;
-    --color-warning: #C78E3F;
-    --color-dark-surface: #30302e;
-    --color-deep-dark: #141413;
-    --font-serif: Charter, Georgia, Palatino, "Times New Roman", serif;
-    --font-sans: Charter, Georgia, Palatino, "Times New Roman", serif;
-    --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Consolas, Monaco, monospace;
-  }
-</style>
-```
-
-### Color palette (Kami Parchment)
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `parchment` | `#f5f4ed` | Page background — warm cream |
-| `ivory` | `#faf9f5` | Card / lifted container surface |
-| `sand` | `#e8e6dc` | Button / interactive surface |
-| `brand` | `#1B365D` | Ink Blue — sole accent, CTAs, section bar |
-| `brand-light` | `#2D5A8A` | Links on dark, hover states |
-| `brand-tint` | `#EEF2F7` | Lightest tag background |
-| `brand-tint-strong` | `#E4ECF5` | Default tag background |
-| `near-black` | `#141413` | Primary text |
-| `dark-warm` | `#3d3d3a` | Secondary text, table headers |
-| `olive` | `#504e49` | Subtext, descriptions |
-| `stone` | `#6b6a64` | Tertiary, dates, metadata |
-| `border` | `#e8e6dc` | Primary border |
-| `border-soft` | `#e5e3d8` | Row separator |
-| `success` | `#4a7c59` | Positive, additions |
-| `danger` | `#8b3a3a` | Negative, deletions |
-| `warning` | `#C78E3F` | Warning |
-| `deep-dark` | `#141413` | Dark page background |
-| `dark-surface` | `#30302e` | Dark container |
-
-All grays are warm-toned (R >= G >= B). Never use cool/blue grays.
-
-### Typography
-
-Serif-led design: `--font-sans` equals `--font-serif` (Charter).
-
-| Role | Size | Weight | Line-height | Tailwind |
-|------|------|--------|-------------|----------|
-| Display | 48px | 500 | 1.1 | `font-serif font-medium text-5xl leading-[1.1]` |
-| H1 | 30px | 500 | 1.2 | `font-serif font-medium text-3xl` |
-| H2 | 24px | 500 | 1.3 | `font-serif font-medium text-2xl` |
-| H3 | 20px | 500 | 1.35 | `font-serif font-medium text-xl` |
-| Lead | 16px | 400 | 1.5 | `.lead` (= `text-base`) |
-| Body | 16px | 400 | 1.625 | `text-base leading-relaxed` (default, usually omit) |
-| Small | 14px | 400 | 1.5 | `text-sm` |
-| Eyebrow | 12px | 500 | 1.4 | `.eyebrow` (= `text-xs`) |
-| Code | 12px | 400 | 1.65 | `font-mono text-xs leading-[1.65]` |
-
-Rules:
-- **Global styles on `<body>`, not per-element.** `font-family`, `font-size`, `line-height`, `color` these universally-applicable properties should be set once on `<body>` (e.g. `class="font-serif text-base leading-relaxed text-near-black"`). Only override at the element level when it actually differs from the default (headings, code blocks, captions). Never repeat `font-serif` on every `<p>` or `<div>`.
-- **Prefer Tailwind preset values.** Use `text-xs` / `text-sm` / `text-base` / `text-lg` / `text-xl` … instead of arbitrary values like `text-[11px]` or `text-[13px]`. Arbitrary font sizes should only appear for Display/H1 when no preset matches.
-- **Body defaults to `text-base` (16px).** Do not set smaller base font sizes like `text-[14px]` or `text-[15px]` — they hurt readability on most screens.
-- **Serif everywhere** (sans = serif in Kami). Mono for labels/code/metadata.
-- **No bold**: max weight is 500 for headings, 600 for labels. Never 700+.
-- **No italic**: `font-style: italic` is forbidden.
-
-### Spacing
-
-Base unit: 4px. Use Tailwind spacing scale (1 = 4px).
-
-| Context | Tailwind |
-|---------|----------|
-| Page padding | `px-8 pt-12 pb-24` |
-| Section gap | `mb-12` |
-| Card padding | `p-5` or `p-6` |
-| Component gap | `gap-3` to `gap-4` |
-| Max content width | `max-w-[1120px] mx-auto` |
-
-### Shape
-
-- Panel radius: `rounded-xl` (12px)
-- Card/row radius: `rounded-lg` (8px)
-- Tag radius: `rounded` (4px)
-- Border: `border border-border`
-- Shadows: whisper only — `hover:shadow-[0_1px_3px_rgba(20,20,19,0.06)]`
-
-### Core component patterns (semantic classes)
-
-Templates include semantic CSS classes via `assets/components.css` (injected by
-`init.py`). These are **starting points, not constraints**. If a document needs
-a component that doesn't exist — a radial progress ring, a comparison slider,
-a node-graph legend — create it. The built-in classes cover common patterns;
-the uncommon ones are where the most value lives. Follow the Kami design
-tokens (colors, type, spacing, shape) but don't limit yourself to the
-pre-built vocabulary.
-
-Tailwind utilities are still used for layout (grid, flex, gap) and
-one-off adjustments (margins, responsive prefixes).
-
-**Defining new component classes:** The Tailwind v4 Play CDN supports `@apply`.
-When a utility chain repeats 3+ times in your output, extract it as a class
-inside the `<style type="text/tailwindcss">` block:
-
-```css
-.status-dot { @apply w-2 h-2 rounded-full bg-success; }
-```
-
-Then use `<span class="status-dot"></span>` everywhere instead of repeating the
-utility chain. The built-in classes below are already defined this way.
-
-**Surfaces:**
-- `.card` (add `.card-lg` for 24px padding)
-- `.callout` (muted bg) / `.callout-brand` (ivory bg + left-bar) / `.callout-light` (transparent bg + left-bar only — editorial style)
-
-**Typography:**
-- `.h2-bar` — Kami signature left-bar heading (rounded 1.5px)
-- `.eyebrow` — Brand-colored mono label / `.eyebrow-muted` — Stone-colored
-- `.lead` — Large intro paragraph (16px, dark-warm, max-width 85%)
-- `.hl` — Brand-color inline highlight (text-brand font-medium)
-- `.sub` — Small annotation next to headings
-
-**Tags & Badges:**
-- `.tag` / `.tag-breaking` (warm red for breaking changes)
-- `.badge` (variants: `.badge-success`, `.badge-danger`, `.badge-warning`)
-- `.section-num`
-
-**Metrics (Kami inline strip):**
-- `.metrics` — Horizontal flex row with dotted bottom border
-- `.metric` — Single metric (flex baseline, transparent)
-- `.metric-value` — Large brand number (32px, tabular-nums)
-- `.metric-label` — Small olive label
-
-**Timeline:**
-- `.timeline` — Horizontal flex row
-- `.tl-step` / `.tl-year` / `.tl-head` / `.tl-body`
-
-**Lists:**
-- `ul.dash` — Em-dash list with brand-colored markers
-
-**Tables:**
-- `.kami-table` — Polished table (dotted row borders)
-- Variants: `.compact`, `.striped`, `.financial`
-- `.total` on `<tr>` for summary rows
-
-**Quote:**
-- `.quote` — Left-bar blockquote with `.cite` for attribution
-
-**Layout:**
-- `.two-col` — Two-column grid
-
-**Buttons:**
-- `.btn-primary` / `.btn-ghost`
-
-**Code:**
-- `.inline-code` / `.code-block`
-
-**Footer:**
-- `.doc-footer` — Dotted-top separator with left/right spans
-
-**Version (Changelog):**
-- `.version-header` with `.version-logo`, `.version-title`, `.version-tagline`, `.version-date`
-
-**Provenance & Indicators:**
-- `.prompt-box` — Shows the prompt that generated this document (`.prompt-label` for the mono label)
-- `.chip` — Compact mono-font pill for at-a-glance metrics (`.chip-val` for the emphasized value)
-
-Example — metric strip:
-```html
-<div class="metrics">
-  <div class="metric">
-    <span class="metric-value">24</span>
-    <span class="metric-label">Open issues</span>
-  </div>
-</div>
-```
-
-Example — numbered section:
-```html
-<h2 class="h2-bar text-2xl tracking-tight mb-2">1. Title</h2>
-```
-
-Example — callout-light:
-```html
-<div class="callout-light">
-  <div class="eyebrow mb-1">Key Takeaway</div>
-  <p class="text-dark-warm">Content here.</p>
-</div>
-```
-
-Example — prompt box (exploration / research header):
-```html
-<div class="prompt-box">
-  <span class="prompt-label">Prompt</span>
-  Show me three ways to implement debounced search with tradeoffs.
-</div>
-```
-
-Example — chip strip (inside comparison cards):
-```html
-<div class="flex flex-wrap gap-2">
-  <span class="chip">Bundle: <span class="chip-val">+0 kb</span></span>
-  <span class="chip">Reuse: <span class="chip-val">high</span></span>
-</div>
-```
-
-**Tab active**: `text-near-black border-b-2 border-brand`
-**Tab inactive**: `text-stone border-b-2 border-transparent hover:text-near-black`
-
-### Design invariants
-
-1. Page background is parchment (never pure white)
-2. All grays are warm-toned (R >= G >= B)
-3. Single accent: brand (#1B365D)
-4. Serif-led typography (sans = serif)
-5. No bold (max weight 500), no italic
+1. Page background is parchment (`#f5f4ed`) — never pure white
+2. All grays are warm-toned (R >= G >= B) — no cool/blue grays
+3. Single accent: brand (`#1B365D`)
+4. Serif-led typography (sans = serif = Charter)
+5. No bold (max weight 500-600), no italic
 6. Shadows are whisper-only
 7. Section titles use left-bar (`.h2-bar`)
 8. Separators are dotted (not solid) — `border-dotted border-border`
 9. Numbers use `font-variant-numeric: tabular-nums`
 10. Tailwind utility-first with semantic classes for repeated patterns
+11. Body defaults to `text-base` (16px) — never set smaller base sizes
+12. Global styles on `<body>`, not per-element
+
+### Component classes
+
+Templates include `assets/components.css` (injected by `init.py`). These are
+starting points — create new components freely using Kami tokens. Extract
+repeated utility chains as `@apply` classes in the `<style>` block.
+
+Key classes: `.card`, `.callout-light`, `.h2-bar`, `.eyebrow`, `.lead`,
+`.metrics` + `.metric-value` + `.metric-label`, `.tag`, `.badge`,
+`.kami-table`, `.btn-primary`, `.prompt-box`, `.chip`, `.doc-footer`
+
+See `references/design.md` for the full class catalog with examples.
 
 ---
 
@@ -442,295 +232,53 @@ Bad examples:
 - Accordions that collapse every section — forcing N clicks to read N sections
 - Modals that interrupt reading flow for non-critical content
 
-### Interaction recipes
+For advanced interaction recipes (hover-linked glossary, CSS custom-property
+live tuning, dim-not-hide filtering, micro-delight animations), see
+`references/interaction-recipes.md`.
 
-Beyond the basic patterns (tabs, drag-and-drop, slides), these recipes add
-tangible delight and comprehension value. Use them when the document type
-calls for it — don't force them everywhere.
+### Diagrams — Mermaid via beautiful-mermaid
 
-**Hover-linked glossary** (research / explainer):
-Place a sticky `<aside>` sidebar with a `<dl>` of key terms. In the body text,
-wrap terms in `<span class="term" data-term="ring">`. On hover, highlight the
-matching `<dt>` in the sidebar. This turns unfamiliar vocabulary into something
-the reader can touch without interrupting their reading flow.
-
-```javascript
-document.querySelectorAll('.term').forEach(function(el) {
-  var g = el.dataset.term;
-  el.addEventListener('mouseenter', function() {
-    document.querySelector('dt[data-g="' + g + '"]')?.classList.add('hl');
-  });
-  el.addEventListener('mouseleave', function() {
-    document.querySelector('dt[data-g="' + g + '"]')?.classList.remove('hl');
-  });
-});
-```
-
-Style the `.term` span with `border-bottom: 1.5px dotted; cursor: help` and
-the `.hl` state on the sidebar `<dt>` with a subtle brand-tint background.
-
-**CSS custom-property live tuning** (prototype / animation sandbox):
-Define adjustable parameters as CSS custom properties on `:root`, then let
-sliders or preset buttons swap them via `setProperty()`. Every transition and
-animation on the page reacts instantly — zero re-render, zero JS animation
-libraries.
-
-```javascript
-var root = document.documentElement;
-slider.addEventListener('input', function() {
-  root.style.setProperty('--duration', slider.value + 'ms');
-});
-presetBtn.addEventListener('click', function() {
-  root.style.setProperty('--ease', btn.dataset.ease);
-});
-```
-
-**Dim-not-hide filtering** (editor / triage board):
-When filtering by tag or category, don't hide non-matching items — set them to
-`opacity: 0.25`. This preserves spatial context so the user still sees the
-overall landscape. Show a colored filter pill in the toolbar that clears the
-filter on click.
-
-**Micro-delight animations** (prototype / editor):
-CSS-only confetti, checkmark draw-on, or scale-bounce on state change. These
-take 10-15 lines of CSS and zero JS, but make the interaction *feel* rewarding.
-Use sparingly — one micro-animation per document, tied to the primary action.
-
-```css
-/* Example: 6 confetti particles on task completion */
-.confetti { position: absolute; width: 6px; height: 6px; border-radius: 2px; opacity: 0; }
-.done .confetti { animation: pop 520ms var(--ease) 200ms forwards; }
-@keyframes pop {
-  0%   { opacity: 0; transform: translate(0,0) scale(0.6); }
-  15%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1); }
-}
-```
-
-Set `--dx`, `--dy`, `--rot` per particle via inline style or numbered classes.
-
-### Inline SVG diagrams
-
-Use inline `<svg>` for architecture diagrams, data-flow charts, flowcharts,
-and concept illustrations. SVG gives pixel-precise control, scales to any
-screen, and uses the same Kami color tokens as the rest of the page.
-
-**Arrow marker definition** — put this once in `<defs>`, reuse everywhere:
+Use beautiful-mermaid for all diagrams. Write Mermaid syntax in
+`<div class="mermaid">` — the library renders styled SVG automatically.
+Templates already include the rendering script (`assets/mermaid.html`).
 
 ```html
-<svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#6b6a64"/>
-    </marker>
-    <!-- accent arrow for highlighted paths -->
-    <marker id="arrow-brand" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1B365D"/>
-    </marker>
-  </defs>
-```
-
-**Box node** — rounded rect + centered title + subtitle:
-
-```html
-<rect x="20" y="20" width="180" height="54" rx="10"
-      fill="#faf9f5" stroke="#e8e6dc" stroke-width="1.5"/>
-<text x="110" y="43" text-anchor="middle"
-      font-size="12" font-weight="500" fill="#141413">Service Name</text>
-<text x="110" y="60" text-anchor="middle"
-      font-size="10.5" fill="#6b6a64">packages/api</text>
-```
-
-**Dark box** for databases / storage:
-
-```html
-<rect x="340" y="266" width="180" height="54" rx="10"
-      fill="#141413" stroke="#141413"/>
-<text x="430" y="289" text-anchor="middle"
-      font-size="12" font-weight="500" fill="#faf9f5">comments table</text>
-<text x="430" y="306" text-anchor="middle"
-      font-size="10.5" fill="#C9B98A">postgres</text>
-```
-
-**Connections** — solid for sync, dashed for async:
-
-```html
-<!-- sync flow -->
-<path d="M200 177 L340 177" stroke="#6b6a64" stroke-width="1.5"
-      fill="none" marker-end="url(#arrow)"/>
-<!-- async / optional flow -->
-<path d="M520 177 L660 177" stroke="#1B365D" stroke-width="1.5"
-      fill="none" stroke-dasharray="5 4" marker-end="url(#arrow-brand)"/>
-```
-
-**Annotations** — plain text placed near the relevant element:
-
-```html
-<text x="415" y="234" text-anchor="middle"
-      font-size="12" fill="#6b6a64">next to run</text>
-```
-
-**Key rules**:
-- `viewBox` with fixed coordinates (e.g. `0 0 860 340`), let the SVG scale
-  responsively via `width="100%"` on the containing element
-- Strokes: `1.5px` normal, `2px` for emphasized elements
-- All corners rounded: `rx="10"` on rects
-- Fonts inside SVG: use `font-family` matching the page mono/sans stack
-- Colors: use Kami hex values directly (CSS custom properties don't work
-  reliably inside inline SVG across all browsers)
-- Wrap each diagram in a `<figure>` with `<figcaption>` for context
-
-**Figure wrapper**:
-
-```html
-<figure>
-  <div class="card p-0 overflow-hidden">
-    <svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg">
-      <!-- diagram content -->
-    </svg>
+<figure class="diagram">
+  <div class="mermaid">
+graph TD
+  A[User Request] --> B{Route}
+  B -->|Docs| C[Kami]
+  B -->|Code| D[Kaku]
   </div>
-  <figcaption class="text-sm text-stone mt-2">
-    Data flow: optimistic write path on the left, fan-out on the right.
-  </figcaption>
+  <figcaption>Request routing overview.</figcaption>
 </figure>
 ```
+
+Rules: wrap in `<figure class="diagram">` + `<figcaption>`; keep ≤12 nodes;
+use subgraphs for grouping; label edges with the relationship.
+
+For supported types, syntax, theme mapping, and examples see
+`references/beautiful-mermaid.md`.
 
 ---
 
 ## JavaScript patterns
 
-### Data-driven rendering
+Key principles:
+- **Data-driven**: Define data as a JS array/object at the top, render from it
+- **Clipboard export**: Every editor needs a "Copy" button (JSON, Markdown, or prompt)
+- **Closed-loop**: Design artifacts as bidirectional — user adjusts, exports,
+  pastes back into the agent for the next iteration
+- **Export as prompt** is often more useful than export as data
 
-Define data at the top, render from it. This is the single most important JS
-pattern — it keeps content separate from presentation and makes export trivial.
-
-```javascript
-var DATA = [
-  { id: 'T-101', title: 'Fix auth flow', priority: 'high', status: 'open' },
-  // ...
-];
-
-function render() {
-  container.innerHTML = '';
-  DATA.forEach(function(item) {
-    var el = document.createElement('div');
-    el.className = 'card';
-    el.innerHTML = '<h3>' + item.title + '</h3>';
-    container.appendChild(el);
-  });
-}
-render();
-```
-
-### Clipboard export
-
-Every editor must have an export button. Use this pattern:
-
-```javascript
-function buildExport() {
-  return JSON.stringify(DATA, null, 2);
-  // or build Markdown, CSV, etc.
-}
-
-exportBtn.addEventListener('click', function() {
-  navigator.clipboard.writeText(buildExport()).then(function() {
-    exportBtn.textContent = 'Copied';
-    exportBtn.classList.add('copied');
-    setTimeout(function() {
-      exportBtn.textContent = 'Copy';
-      exportBtn.classList.remove('copied');
-    }, 2000);
-  });
-});
-```
-
-### Closed-loop workflow
-
-HTML artifacts are not just output — they are a **bidirectional interface**
-between the agent and the human. The user reads, adjusts, exports, and pastes
-the result back into the agent for the next iteration.
-
-Design every interactive artifact with this loop in mind:
-
-```
-Agent generates HTML → User opens and adjusts → Export button → Clipboard
-→ User pastes back into agent → Agent uses exported data → next iteration
-```
-
-Practical implications:
-
-1. **Design the export format first.** Before building the editor, decide what
-   the agent or the codebase needs: Markdown table? JSON config? A prompt with
-   the user's choices filled in? Build the `buildExport()` function first, then
-   design the UI that produces that output.
-
-2. **Use `.prompt-box`** at the top of exploration and research documents to
-   show the prompt that generated them. This lets the user copy-and-modify the
-   prompt for a follow-up round.
-
-3. **Export as prompt** is often more useful than export as data. For a triage
-   board, exporting "Move BIR-241 to Now because…" as a prompt the user can
-   paste back is more actionable than a raw JSON dump.
-
-4. **Multiple export formats** when the audience varies: "Copy as Markdown"
-   for pasting into a planning doc, "Copy as JSON" for committing to config,
-   "Copy as Prompt" for continuing the conversation with the agent.
-
-### Drag and drop
-
-For triage boards and reorderable lists:
-
-```javascript
-card.draggable = true;
-card.addEventListener('dragstart', function(e) {
-  e.dataTransfer.setData('text/plain', item.id);
-  card.classList.add('dragging');
-});
-dropZone.addEventListener('dragover', function(e) { e.preventDefault(); });
-dropZone.addEventListener('drop', function(e) {
-  e.preventDefault();
-  var id = e.dataTransfer.getData('text/plain');
-  // move item, re-render
-});
-```
-
-### Tab navigation
-
-```javascript
-tabs.forEach(function(tab) {
-  tab.addEventListener('click', function() {
-    tabs.forEach(function(t) { t.classList.remove('active'); });
-    tab.classList.add('active');
-    panels.forEach(function(p) { p.style.display = 'none'; });
-    document.getElementById(tab.dataset.panel).style.display = 'block';
-  });
-});
-```
-
-### Slide deck (arrow keys)
-
-```css
-body { scroll-snap-type: y mandatory; overflow-y: scroll; }
-.slide { width: 100vw; height: 100vh; scroll-snap-align: start; }
-```
-
-```javascript
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-    e.preventDefault();
-    currentSlide = Math.min(currentSlide + 1, slides.length - 1);
-    slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
-  }
-});
-```
+For implementation patterns (data-driven rendering, clipboard export,
+drag-and-drop, tab navigation, slide deck), see `references/js-patterns.md`.
 
 ---
 
 ## Common mistakes to avoid
 
-- **Unauthorized externals**: Only Tailwind CSS Play CDN is allowed. No Google Fonts, no other JS libraries, no other CSS frameworks.
+- **Unauthorized externals**: Only Tailwind CSS Play CDN and `esm.sh/beautiful-mermaid` are allowed. No Google Fonts, no other JS libraries, no other CSS frameworks.
 - **Cool grays**: Never use `#f8f9fa`, `#e9ecef`, or any blue-tinted gray. Stick to the warm Kami palette.
 - **Bold/italic**: No `font-weight: 700` or `font-style: italic`. Max weight is 500-600.
 - **Hard shadows**: No `box-shadow: 0 2px 8px rgba(0,0,0,0.3)`. Only whisper shadows.
