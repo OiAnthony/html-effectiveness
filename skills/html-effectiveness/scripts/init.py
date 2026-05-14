@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from shared import TEMPLATES, TEMPLATE_REGISTRY, inject_components_css, resolve_output_path
+from shared import TEMPLATES, TEMPLATE_REGISTRY, inject_components_css, inject_mermaid_script, resolve_output_path
 
 EPILOG = """\
 examples:
@@ -79,6 +79,7 @@ def main() -> None:
 
     html = fill_template(template_content, replacements)
     html = inject_components_css(html)
+    html = inject_mermaid_script(html)
     output_path = resolve_output_path(args.output, args.template, title)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(html, encoding="utf-8")

@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES = ROOT / "assets" / "templates"
 COMPONENTS_CSS = ROOT / "assets" / "components.css"
+MERMAID_SCRIPT = ROOT / "assets" / "mermaid.html"
 OUTPUT_DIR = Path.cwd()
 
 TEMPLATE_REGISTRY: dict[str, dict] = {
@@ -62,6 +63,15 @@ def inject_components_css(html: str) -> str:
     css = COMPONENTS_CSS.read_text()
     marker = "</style>\n</head>"
     return html.replace(marker, f"\n{css}</style>\n</head>", 1)
+
+
+def inject_mermaid_script(html: str) -> str:
+    """Inject beautiful-mermaid rendering script before </body>."""
+    if not MERMAID_SCRIPT.exists():
+        return html
+    script = MERMAID_SCRIPT.read_text()
+    marker = "</body>"
+    return html.replace(marker, f"{script}{marker}", 1)
 
 
 def slugify(text: str) -> str:

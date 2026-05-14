@@ -79,6 +79,12 @@ ul.dash li::before { content: "\2013"; @apply absolute left-0 text-brand; }
 .chip { @apply font-mono text-xs bg-parchment border border-border text-dark-warm px-2.5 py-1 rounded-lg whitespace-nowrap; }
 .chip .chip-val { @apply text-near-black font-medium; }
 
+/* ══════════ DIAGRAMS ══════════ */
+.mermaid { @apply my-6 flex justify-center; }
+.mermaid svg { @apply max-w-full h-auto rounded-xl; }
+figure.diagram { @apply my-8; }
+figure.diagram figcaption { @apply text-sm text-olive text-center mt-3; }
+
 /* ══════════ FOOTER ══════════ */
 .doc-footer { @apply mt-12 pt-4 border-t border-dotted border-border text-[12px] text-stone flex justify-between; }
 

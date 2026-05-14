@@ -1,0 +1,10 @@
+<script type="module">
+if (document.querySelector('.mermaid')) {
+  var { renderMermaidSVG } = await import('https://esm.sh/beautiful-mermaid')
+  var theme = { bg: '#f5f4ed', fg: '#141413', accent: '#1B365D', muted: '#6b6a64', surface: '#faf9f5', border: '#e8e6dc' }
+  document.querySelectorAll('.mermaid').forEach(function(el) {
+    var svg = renderMermaidSVG(el.textContent.trim(), theme)
+    if (svg) el.innerHTML = svg
+  })
+}
+</script>
