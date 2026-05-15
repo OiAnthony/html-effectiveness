@@ -35,5 +35,6 @@ Visual style from Kami "Parchment": warm cream background (`#f5f4ed`), ink-blue 
 ## Acknowledgments
 
 - [html-effectiveness](https://github.com/ThariqS/html-effectiveness) by [Thariq Shihipar](https://x.com/trq212) — the original article and 20 HTML demos showing HTML as an AI output format. ([Live examples](https://thariqs.github.io/html-effectiveness/))
-- [Kami (紙)](https://github.com/anthropics/kami) by [Tw93](https://github.com/Tw93) — a document typesetting skill, reference for design system and template structure.
+- [Kami (紙)](https://github.com/tw93/kami) by [Tw93](https://github.com/Tw93) — a document typesetting skill, reference for design system and template structure.
 - [AntV Infographic](https://github.com/antvis/infographic) by [AntV](https://github.com/antvis) — a declarative infographic engine, reference for chart generation patterns and visual language.
+- [Beautiful Mermaid](https://github.com/lukilabs/beautiful-mermaid) by [Lukilabs](https://github.com/lukilabs) — a Mermaid diagram rendering skill, used for inline diagram support.

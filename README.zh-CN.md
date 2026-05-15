@@ -35,5 +35,6 @@ npx skills add https://github.com/OiAnthony/html-effectiveness --skill html-effe
 ## 致谢
 
 - [html-effectiveness](https://github.com/ThariqS/html-effectiveness) by [Thariq Shihipar](https://x.com/trq212)，原始文章和 20 个 HTML demo，演示了 HTML 作为 AI 输出格式的效果。（[在线示例](https://thariqs.github.io/html-effectiveness/)）
-- [Kami (紙)](https://github.com/anthropics/kami) by [Tw93](https://github.com/Tw93)，文档排版 skill，设计系统和模板结构的参考来源。
+- [Kami (紙)](https://github.com/tw93/kami) by [Tw93](https://github.com/Tw93)，文档排版 skill，设计系统和模板结构的参考来源。
 - [AntV Infographic](https://github.com/antvis/infographic) by [AntV](https://github.com/antvis)，声明式信息图引擎，图表生成模式和视觉语言的参考。
+- [Beautiful Mermaid](https://github.com/lukilabs/beautiful-mermaid) by [Lukilabs](https://github.com/lukilabs)，Mermaid 图表渲染 skill，用于内联图表支持。
